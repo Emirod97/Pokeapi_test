@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,15 @@ export class PokemonService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAll(){
-    return this.httpClient.get(this.API_PATH+`?offset=1&limit=${this.getCount()}`);
+  public getAll() {
+    return this.httpClient.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=15');
   }
 
-  private getCount(){
-    let res = this.httpClient.get(this.API_PATH);
+  public getOne(path) {
+    return this.httpClient.get(path);
+  }
 
-    return res.count;
+  public getNextPage(path){
+    return this.httpClient.get(path);
   }
 }

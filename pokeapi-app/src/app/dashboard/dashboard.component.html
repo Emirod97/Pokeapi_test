@@ -1,1 +1,11 @@
-<p>dashboard works!</p>
+<div>
+    <button *ngIf='previous' (click)='previousPage()'>Previous</button>
+    <button *ngIf='next' (click)='nextPage()'>Next</button>
+</div>
+
+<div *ngFor='let poke of pokemonList'>
+    <div *ngIf='poke.info != undefined'>
+        <img src='{{poke.info.sprites.front_default}}'>
+        {{poke.name}} {{poke.url}}
+    </div>
+</div>
