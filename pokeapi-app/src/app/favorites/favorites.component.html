@@ -1,0 +1,5 @@
+<div *ngFor='let poke of pokemon; index as i'>
+    <img src='{{poke.info.sprites.front_default}}'>
+    <span>{{poke.name}}</span>
+    <button (click)='delFromFavorites(i)'>Delete from favorites</button>
+</div>

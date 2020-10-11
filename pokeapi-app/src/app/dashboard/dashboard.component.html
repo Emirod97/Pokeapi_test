@@ -1,11 +1,67 @@
 <div>
+    <button routerLink='/favorites'> Go to Favorites </button>
+</div>
+
+<div class="spacer">
     <button *ngIf='previous' (click)='previousPage()'>Previous</button>
     <button *ngIf='next' (click)='nextPage()'>Next</button>
 </div>
 
-<div *ngFor='let poke of pokemonList'>
+<!-- <div *ngFor='let poke of pokemonList'>
     <div *ngIf='poke.info != undefined'>
         <img src='{{poke.info.sprites.front_default}}'>
-        {{poke.name}} {{poke.url}}
+        <span>{{poke.name}}</span>
+        <button (click)='addToFavorites(poke)'>Add to favorites</button>
     </div>
-</div>
+</div> -->
+
+<table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="Image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let poke">
+            <div *ngIf='poke.info != undefined'>
+                <img src='{{poke.info.sprites.front_default}}'>
+            </div>
+        </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let poke"> {{poke.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Weight">
+        <th mat-header-cell *matHeaderCellDef> Weight </th>
+        <td mat-cell *matCellDef="let poke">
+            <div *ngIf='poke.info != undefined'>
+                {{poke.info.weight/10}} k.g
+            </div>
+        </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Height">
+        <th mat-header-cell *matHeaderCellDef> Height </th>
+        <td mat-cell *matCellDef="let poke">
+            <div *ngIf='poke.info != undefined'>
+                {{poke.info.height / 10 }} m 
+            </div>
+        </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Add">
+        <th mat-header-cell *matHeaderCellDef> Add </th>
+        <td mat-cell *matCellDef="let poke">
+            <button (click)='addToFavorites(poke)'>Add</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

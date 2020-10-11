@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { PokemonService } from '../pokemon.service';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { PokemonService } from '../services/pokemon.service';
 import { PokemonList } from '../../models/pokemonList';
+import { FavoritesService } from '../services/favorites.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,15 +11,26 @@ import { PokemonList } from '../../models/pokemonList';
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit  {
 
   pokemonList: PokemonList[];
   next: String;
   previous: String;
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(private pokemonService: PokemonService, private favoritesService: FavoritesService) { }
+  
+  displayedColumns: string[] = ['Image', 'Name', 'Weight', 'Height', 'Add'];
+  dataSource: MatTableDataSource<PokemonList>;
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  // ngAfterViewInit() {
+  //   this.dataSource.paginator = this.paginator;
+  // }
 
   ngOnInit(): void {
+
+    
 
     this.pokemonService.getAll().subscribe((res) => {
       console.log(res);
@@ -24,7 +38,9 @@ export class DashboardComponent implements OnInit {
       this.previous = res['previous'];
       this.pokemonList = res['results'];
       // console.log(this.pokemon);
-
+      // this.dataSource = new MatTableDataSource<PokemonList>(this.pokemonList);
+      console.log(this.dataSource);
+      
       this.fillInfo();
     })
 
@@ -37,6 +53,9 @@ export class DashboardComponent implements OnInit {
       })
     });
 
+    this.dataSource = new MatTableDataSource<PokemonList>(this.pokemonList);
+    this.dataSource.paginator = this.paginator
+
   }
 
   nextPage() {
@@ -45,6 +64,8 @@ export class DashboardComponent implements OnInit {
       this.next = res['next'];
       this.previous = res['previous'];
       this.pokemonList = res['results'];
+      
+      console.log(this.dataSource);
       this.fillInfo();
     })
   }
@@ -55,8 +76,16 @@ export class DashboardComponent implements OnInit {
       this.next = res['next'];
       this.previous = res['previous'];
       this.pokemonList = res['results'];
+      // this.dataSource = new MatTableDataSource<PokemonList>(this.pokemonList);
+      console.log(this.dataSource);
       this.fillInfo();
     })
+  }
+
+  addToFavorites(item){
+    console.log(item);
+    
+    this.favoritesService.addOne(item);
   }
 
 }

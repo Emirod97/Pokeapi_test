@@ -14,7 +14,7 @@ export class PokemonService {
   constructor(private httpClient: HttpClient) { }
 
   public getAll() {
-    return this.httpClient.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=15');
+    return this.httpClient.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=5');
   }
 
   public getOne(path) {
