@@ -11,10 +11,12 @@ export class FavoritesService {
 
 
   addOne(pokemon){
-    console.log(pokemon);
-    
-    this.favorites.push(pokemon);
-    console.log(this.favorites);
+    if(this.favorites.includes(pokemon)){
+      return false;
+    }else{
+      this.favorites.push(pokemon);
+      return true;
+    }
     
   }
 

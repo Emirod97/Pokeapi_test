@@ -1,4 +1,11 @@
-<mat-toolbar color="primary" class='toolbar'>
-    <a routerLink=''><span>Poke-Api App</span></a>
+<mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button class="example-icon" routerLink='' aria-label="Example icon-button with menu icon">
+        <mat-icon>home</mat-icon>
+    </button>
+    <span>Poke-Api App</span>
     <span class="spacer"></span>
+    <button routerLink='/favorites' mat-icon-button class="example-icon favorite-icon" 
+    aria-label="Example icon-button with heart icon" matBadgeOverlap="true" matBadge="{{pokemon.length}}">
+        <mat-icon>favorite</mat-icon>
+    </button>
 </mat-toolbar>

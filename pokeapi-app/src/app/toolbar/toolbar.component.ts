@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private favoritesService: FavoritesService) { }
 
+  pokemon;
   ngOnInit(): void {
+    this.pokemon = this.favoritesService.getAll();
   }
 
 }

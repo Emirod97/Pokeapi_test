@@ -16,6 +16,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 
@@ -36,7 +40,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatBadgeModule
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
