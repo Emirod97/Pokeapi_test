@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PokemonList } from 'src/models/pokemonList';
 import { PokemonService } from './pokemon.service';
 
 @Injectable({
@@ -10,35 +11,33 @@ import { PokemonService } from './pokemon.service';
  */
 export class FavoritesService {
 
-  favorites = [];
+  favorites: PokemonList[] = [];
+
   constructor() { }
 
-
-  addOne(pokemon){
-    if(this.favorites.includes(pokemon)){
+  addOne(pokemon) {
+    if (this.favorites.includes(pokemon)) {
       return false;
-    }else{
+    } else {
       this.favorites.push(pokemon);
       return true;
     }
-    
+
   }
 
-  getAll(){
-    console.log(this.favorites);
-    
+  getAll() {
     return this.favorites;
   }
 
-  getOne(index){
+  getOne(index) {
     return this.favorites[index];
   }
 
-  deleteOne(index){
+  deleteOne(index) {
     this.favorites.splice(index, 1);
   }
 
-  deleteAll(){
+  deleteAll() {
     this.favorites = [];
   }
 }

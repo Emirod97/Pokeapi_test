@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 /**
  * This is the main page that its going to be desplayed when launched
  */
-export class DashboardComponent implements OnInit  {
+export class DashboardComponent implements OnInit {
 
   /**
    * Variable declaration for the use of the component
@@ -27,9 +27,9 @@ export class DashboardComponent implements OnInit  {
 
   constructor(private pokemonService: PokemonService, private favoritesService: FavoritesService,
     private snackBar: MatSnackBar) { }
-  
-  
-  
+
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   // ngAfterViewInit() {
@@ -41,14 +41,9 @@ export class DashboardComponent implements OnInit  {
    */
   ngOnInit(): void {
     this.pokemonService.getAll().subscribe((res) => {
-      console.log(res);
       this.next = res['next'];
       this.previous = res['previous'];
       this.pokemonList = res['results'];
-      // console.log(this.pokemon);
-      // this.dataSource = new MatTableDataSource<PokemonList>(this.pokemonList);
-      console.log(this.dataSource);
-      
       this.fillInfo();
     })
 
@@ -75,24 +70,18 @@ export class DashboardComponent implements OnInit  {
    */
   nextPage() {
     this.pokemonService.getChangePage(this.next).subscribe((res) => {
-      console.log(res);
       this.next = res['next'];
       this.previous = res['previous'];
       this.pokemonList = res['results'];
-      
-      console.log(this.dataSource);
       this.fillInfo();
     })
   }
 
   previousPage() {
     this.pokemonService.getChangePage(this.previous).subscribe((res) => {
-      console.log(res);
       this.next = res['next'];
       this.previous = res['previous'];
       this.pokemonList = res['results'];
-      // this.dataSource = new MatTableDataSource<PokemonList>(this.pokemonList);
-      console.log(this.dataSource);
       this.fillInfo();
     })
   }
@@ -102,19 +91,18 @@ export class DashboardComponent implements OnInit  {
    * This method consumes a service for data manipulation for the favorites
    * it recives the pokemon info and add it to the model in the service.
    */
-  addToFavorites(item){
-    console.log(item);
-    
-    if(this.favoritesService.addOne(item)){
-      this.snackBar.open(item.name+' was added successfully!', 'OK', {
+  addToFavorites(item) {
+
+    if (this.favoritesService.addOne(item)) {
+      this.snackBar.open(item.name + ' was added successfully!', 'OK', {
         duration: 3000,
       });
-    }else{
-      this.snackBar.open(item.name+' its already in your list!!!', 'OK', {
+    } else {
+      this.snackBar.open(item.name + ' its already in your list!!!', 'OK', {
         duration: 5000,
       });
     }
-    
+
   }
 
 }
