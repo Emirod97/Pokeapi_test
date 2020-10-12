@@ -11,18 +11,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-
+/**
+ * This is the main page that its going to be desplayed when launched
+ */
 export class DashboardComponent implements OnInit  {
 
+  /**
+   * Variable declaration for the use of the component
+   */
   pokemonList: PokemonList[];
   next: String;
   previous: String;
+  displayedColumns: string[] = ['Image', 'Name', 'Weight', 'Height', 'Add'];
+  dataSource: MatTableDataSource<PokemonList>;
 
   constructor(private pokemonService: PokemonService, private favoritesService: FavoritesService,
     private snackBar: MatSnackBar) { }
   
-  displayedColumns: string[] = ['Image', 'Name', 'Weight', 'Height', 'Add'];
-  dataSource: MatTableDataSource<PokemonList>;
+  
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -30,10 +36,10 @@ export class DashboardComponent implements OnInit  {
   //   this.dataSource.paginator = this.paginator;
   // }
 
+  /**
+   * Prepares all of the variables filling it with info
+   */
   ngOnInit(): void {
-
-    
-
     this.pokemonService.getAll().subscribe((res) => {
       console.log(res);
       this.next = res['next'];
@@ -48,6 +54,9 @@ export class DashboardComponent implements OnInit  {
 
   }
 
+  /**
+   * This method complete the info that is mising and fills the rest of the info.
+   */
   fillInfo() {
     this.pokemonList.forEach(poke => {
       this.pokemonService.getOne(poke.url).subscribe((res) => {
@@ -60,8 +69,12 @@ export class DashboardComponent implements OnInit  {
 
   }
 
+  /**
+   * In these methods send a new get request to the pokeapi service and get the new
+   * bunch if pokemons from the link given.
+   */
   nextPage() {
-    this.pokemonService.getNextPage(this.next).subscribe((res) => {
+    this.pokemonService.getChangePage(this.next).subscribe((res) => {
       console.log(res);
       this.next = res['next'];
       this.previous = res['previous'];
@@ -73,7 +86,7 @@ export class DashboardComponent implements OnInit  {
   }
 
   previousPage() {
-    this.pokemonService.getNextPage(this.previous).subscribe((res) => {
+    this.pokemonService.getChangePage(this.previous).subscribe((res) => {
       console.log(res);
       this.next = res['next'];
       this.previous = res['previous'];
@@ -84,6 +97,11 @@ export class DashboardComponent implements OnInit  {
     })
   }
 
+
+  /**
+   * This method consumes a service for data manipulation for the favorites
+   * it recives the pokemon info and add it to the model in the service.
+   */
   addToFavorites(item){
     console.log(item);
     

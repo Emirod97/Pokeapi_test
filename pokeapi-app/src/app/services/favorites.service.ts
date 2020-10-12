@@ -4,6 +4,10 @@ import { PokemonService } from './pokemon.service';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * This service manage the manipulation of the favorite pokemon whit a CRUD.
+ */
 export class FavoritesService {
 
   favorites = [];

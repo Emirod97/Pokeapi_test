@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 
-// {path: '', component: AppComponent},
+
 const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'favorites', component: FavoritesComponent},

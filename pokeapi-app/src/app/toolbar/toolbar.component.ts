@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PokemonList } from 'src/models/pokemonList';
 import { FavoritesService } from '../services/favorites.service';
 
 @Component({
@@ -10,7 +11,10 @@ export class ToolbarComponent implements OnInit {
 
   constructor(private favoritesService: FavoritesService) { }
 
-  pokemon;
+  /**
+   * Initialize the pokemon variable that its going to feed the badge in the view
+   */
+  pokemon: PokemonList[];
   ngOnInit(): void {
     this.pokemon = this.favoritesService.getAll();
   }
